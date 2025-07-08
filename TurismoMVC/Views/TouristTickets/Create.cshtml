@@ -1,0 +1,215 @@
+﻿@model Turismo.Modelos.TouristTicket
+
+@{
+    ViewData["Title"] = "Crear Boleto Turístico";
+    var rutas = ViewBag.TouristRoutesList as List<Turismo.Modelos.TouristRoute>;
+    var categorias = ViewBag.CategoryTicketsList as List<Turismo.Modelos.CategoryTicket>;
+    var asientos = ViewBag.SeatCategoriesList as List<Turismo.Modelos.SeatCategory>;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="ticketForm" asp-action="Create" method="post">
+            <div class="form-group">
+                <label>Ruta Turística</label>
+                <select id="TouristRouteId" class="form-control">
+                    @foreach (var r in rutas)
+                    {
+                        <option value="@r.Id" data-name="@r.Name" data-price="@r.BasePrice">@r.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Categoría de Ticket</label>
+                <select id="CategoryTicketId" class="form-control">
+                    @foreach (var c in categorias)
+                    {
+                        <option value="@c.Id" data-type="@c.Type" data-price="@c.Price">@c.Type</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Categoría de Asiento</label>
+                <select id="SeatCategoryId" class="form-control">
+                    @foreach (var a in asientos)
+                    {
+                        <option value="@a.Id" data-type="@a.Type" data-price="@a.Price">@a.Type</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Cliente</label>
+                <select id="UserClientId" class="form-control" asp-items="ViewBag.UserClients"></select>
+            </div>
+            <div class="form-group">
+                <label for="Cantidad">Cantidad de boletos</label>
+                <input type="number" class="form-control" id="Cantidad" value="1" min="1" required />
+            </div>
+            <button type="button" class="btn btn-info" onclick="agregarBoletos()">Agregar a la lista</button>
+            <button type="submit" class="btn btn-primary">Confirmar Compra</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h4>Boletos a comprar</h4>
+        <table class="table table-sm" id="tablaBoletos">
+            <thead>
+                <tr>
+                    <th>Ruta</th>
+                    <th>Categoría</th>
+                    <th>Asiento</th>
+                    <th>Cliente</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se agregan los boletos con JS -->
+            </tbody>
+        </table>
+        <h4>Rutas Turísticas Disponibles</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Ruta</th>
+                    <th>Horario</th>
+                    <th>Precio Base</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (rutas != null)
+                {
+                    foreach (var r in rutas)
+                    {
+                        <tr>
+                            <td>@r.Name</td>
+                            <td>@r.DepartureSchedule.ToString("g")</td>
+                            <td>@r.BasePrice.ToString("F2")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <h4>Categorías de Boleto</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (categorias != null)
+                {
+                    foreach (var c in categorias)
+                    {
+                        <tr>
+                            <td>@c.Type</td>
+                            <td>@c.Price.ToString("F2")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <h4>Categorías de Asiento</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (asientos != null)
+                {
+                    foreach (var a in asientos)
+                    {
+                        <tr>
+                            <td>@a.Type</td>
+                            <td>@a.Price.ToString("F2")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let boletos = [];
+
+        function agregarBoletos() {
+            const ruta = document.getElementById('TouristRouteId');
+            const categoria = document.getElementById('CategoryTicketId');
+            const asiento = document.getElementById('SeatCategoryId');
+            const cliente = document.getElementById('UserClientId');
+            const cantidad = parseInt(document.getElementById('Cantidad').value);
+
+            if (!ruta.value || !categoria.value || !asiento.value || !cliente.value || cantidad < 1) {
+                alert('Por favor, complete todos los campos y cantidad mayor a 0.');
+                return;
+            }
+
+            const boleto = {
+                TouristRouteId: ruta.value,
+                TouristRouteName: ruta.options[ruta.selectedIndex].text,
+                CategoryTicketId: categoria.value,
+                CategoryTicketName: categoria.options[categoria.selectedIndex].text,
+                SeatCategoryId: asiento.value,
+                SeatCategoryName: asiento.options[asiento.selectedIndex].text,
+                UserClientId: cliente.value,
+                UserClientName: cliente.options[cliente.selectedIndex].text,
+                Cantidad: cantidad
+            };
+
+            boletos.push(boleto);
+            renderBoletos();
+        }
+
+        function eliminarBoleto(index) {
+            boletos.splice(index, 1);
+            renderBoletos();
+        }
+
+        function renderBoletos() {
+            const tbody = document.querySelector('#tablaBoletos tbody');
+            tbody.innerHTML = '';
+            boletos.forEach((b, i) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${b.TouristRouteName}</td>
+                        <td>${b.CategoryTicketName}</td>
+                        <td>${b.SeatCategoryName}</td>
+                        <td>${b.UserClientName}</td>
+                        <td>${b.Cantidad}</td>
+                        <td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarBoleto(${i})">Eliminar</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Al enviar el formulario, agrega los boletos como campos ocultos
+        document.getElementById('ticketForm').addEventListener('submit', function (e) {
+            if (boletos.length === 0) {
+                alert('Agregue al menos un boleto a la lista antes de confirmar la compra.');
+                e.preventDefault();
+                return false;
+            }
+            boletos.forEach((b, i) => {
+                for (const key in b) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = `Boletos[${i}].${key}`;
+                    input.value = b[key];
+                    this.appendChild(input);
+                }
+            });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

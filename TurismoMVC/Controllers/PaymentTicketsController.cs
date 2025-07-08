@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Turismo.Modelos;
+using TurismoAPI.Consumer;
 
 namespace TurismoMVC.Controllers
 {
@@ -8,13 +9,15 @@ namespace TurismoMVC.Controllers
         // GET: PaymentTicketsController
         public ActionResult Index()
         {
-            return View();
+            var paymentTickets = Crud<PaymentTicket>.GetAll(); // Obtener todos los pagos de boletos
+            return View(paymentTickets);
         }
 
         // GET: PaymentTicketsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var paymentTicket = Crud<PaymentTicket>.GetById(id); // Obtener pago de boleto por ID
+            return View(paymentTicket);
         }
 
         // GET: PaymentTicketsController/Create
@@ -26,57 +29,68 @@ namespace TurismoMVC.Controllers
         // POST: PaymentTicketsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(PaymentTicket paymentTicket)
         {
             try
             {
+                // Crear el pago de boleto usando CRUD
+                Crud<PaymentTicket>.Create(paymentTicket);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(paymentTicket);
             }
         }
 
         // GET: PaymentTicketsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var paymentTicket = Crud<PaymentTicket>.GetById(id); // Obtener pago de boleto para editar
+            return View(paymentTicket);
         }
 
         // POST: PaymentTicketsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, PaymentTicket paymentTicket)
         {
             try
             {
+                // Actualizar el pago de boleto
+                Crud<PaymentTicket>.Update(id, paymentTicket);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(paymentTicket);
             }
         }
 
         // GET: PaymentTicketsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var paymentTicket = Crud<PaymentTicket>.GetById(id); // Obtener pago de boleto para eliminar
+            return View(paymentTicket);
         }
 
         // POST: PaymentTicketsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, PaymentTicket paymentTicket)
         {
             try
             {
+                // Eliminar el pago de boleto
+                Crud<PaymentTicket>.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(paymentTicket);
             }
         }
     }

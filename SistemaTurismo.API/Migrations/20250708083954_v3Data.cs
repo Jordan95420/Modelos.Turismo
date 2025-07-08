@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SistemaTurismo.API.Migrations
 {
     /// <inheritdoc />
-    public partial class v1TurismoData : Migration
+    public partial class v3Data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

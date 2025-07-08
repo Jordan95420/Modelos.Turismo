@@ -1,0 +1,35 @@
+﻿@model Turismo.Modelos.TouristTicket
+
+@{
+    ViewData["Title"] = "Detalles del Boleto Turístico";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+
+        <dt class="col-sm-3">Ruta</dt>
+        <dd class="col-sm-9">@Model.TouristRouteId</dd>
+
+        <dt class="col-sm-3">Categoría</dt>
+        <dd class="col-sm-9">@Model.CategoryTicketId</dd>
+
+        <dt class="col-sm-3">Asiento</dt>
+        <dd class="col-sm-9">@Model.SeatCategoryId</dd>
+
+        <dt class="col-sm-3">Cliente</dt>
+        <dd class="col-sm-9">@Model.UserClientId</dd>
+
+        <dt class="col-sm-3">Precio Final</dt>
+        <dd class="col-sm-9">@Model.FinallyPrice.ToString("F2")</dd>
+
+        <dt class="col-sm-3">Fecha Compra</dt>
+        <dd class="col-sm-9">@Model.PurchaseDate.ToString("g")</dd>
+    </dl>
+</div>
+<a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Eliminar</a>

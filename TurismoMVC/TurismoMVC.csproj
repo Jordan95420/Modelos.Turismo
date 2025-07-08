@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FatoryPatron\PatronDiseño.csproj" />
+    <ProjectReference Include="..\FatoryPatron\FatoryPatron.csproj" />
     <ProjectReference Include="..\Modelos.Turismo\Modelos.Turismo.csproj" />
     <ProjectReference Include="..\TurismoAPI.Consumer\TurismoAPI.Consumer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="QuestPDF" Version="2025.7.0" />
   </ItemGroup>
 
 </Project>

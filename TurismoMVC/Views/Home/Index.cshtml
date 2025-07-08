@@ -1,8 +1,45 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-3 text-primary">Bienvenido al Sistema de Venta de Boletos de Trenes Turísticos en Ibarra</h1>
+            <p class="lead mb-4">
+                Administra y adquiere tus boletos de manera fácil, rápida y segura.<br />
+                Consulta rutas, categorías, asientos y gestiona tus compras en un solo lugar.
+            </p>
+            <div class="mb-4">
+                <a class="btn btn-success btn-lg mx-2" asp-controller="TouristTickets" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Comprar Boleto
+                </a>
+                <a class="btn btn-primary btn-lg mx-2" asp-controller="TouristTickets" asp-action="Index">
+                    <i class="bi bi-ticket-detailed"></i> Ver Mis Boletos
+                </a>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">Compra Segura</h5>
+                            <p class="card-text">Tus datos y transacciones están protegidos con los más altos estándares de seguridad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Fácil de Usar</h5>
+                            <p class="card-text">Interfaz intuitiva para que puedas gestionar tus boletos y rutas sin complicaciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5" />
+            <p class="text-muted small">
+                &copy; 2025 Sistema de Venta de Boletos - Trenes Turísticos Ibarra
+            </p>
+        </div>
+    </div>
 </div>

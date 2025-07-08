@@ -1,0 +1,32 @@
+﻿@model Turismo.Modelos.TouristTicket
+
+@{
+    ViewData["Title"] = "Eliminar Boleto Turístico";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>¿Está seguro que desea eliminar este boleto?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+        <dt class="col-sm-3">Ruta</dt>
+        <dd class="col-sm-9">@Model.Route?.Name</dd>
+        <dt class="col-sm-3">Categoría</dt>
+        <dd class="col-sm-9">@Model.Category?.Type</dd>
+        <dt class="col-sm-3">Asiento</dt>
+        <dd class="col-sm-9">@Model.Seat?.Type</dd>
+        <dt class="col-sm-3">Cliente</dt>
+        <dd class="col-sm-9">@Model.Client?.Name</dd>
+        <dt class="col-sm-3">Precio Final</dt>
+        <dd class="col-sm-9">@Model.FinallyPrice.ToString("F2")</dd>
+        <dt class="col-sm-3">Fecha Compra</dt>
+        <dd class="col-sm-9">@Model.PurchaseDate.ToString("g")</dd>
+    </dl>
+</div>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

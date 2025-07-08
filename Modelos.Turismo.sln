@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36221.1 d17.14
+VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelos.Turismo", "Modelos.Turismo\Modelos.Turismo.csproj", "{4187F40F-7CCF-447B-816B-488689F88CD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatronDiseño", "FatoryPatron\PatronDiseño.csproj", "{76348482-FE08-49B6-ADA0-11D0FAE3BC29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FatoryPatron", "FatoryPatron\FatoryPatron.csproj", "{76348482-FE08-49B6-ADA0-11D0FAE3BC29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaTurismo.API", "SistemaTurismo.API\SistemaTurismo.API.csproj", "{7E193BF7-64D9-4A0F-96B2-244C753D2957}"
 EndProject

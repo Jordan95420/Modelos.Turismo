@@ -11,23 +11,23 @@ namespace SistemaTurismo.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TouristsTicketsController : ControllerBase
+    public class TouristTicketsController : ControllerBase
     {
         private readonly DbContext _context;
 
-        public TouristsTicketsController(DbContext context)
+        public TouristTicketsController(DbContext context)
         {
             _context = context;
         }
 
-        // GET: api/TouristsTickets
+        // GET: api/TouristTickets
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TouristTicket>>> GetTouristTicket()
         {
             return await _context.TouristTickets.ToListAsync();
         }
 
-        // GET: api/TouristsTickets/5
+        // GET: api/TouristTickets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TouristTicket>> GetTouristTicket(int id)
         {
@@ -41,7 +41,7 @@ namespace SistemaTurismo.API.Controllers
             return touristTicket;
         }
 
-        // PUT: api/TouristsTickets/5
+        // PUT: api/TouristTickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTouristTicket(int id, TouristTicket touristTicket)
@@ -72,7 +72,7 @@ namespace SistemaTurismo.API.Controllers
             return NoContent();
         }
 
-        // POST: api/TouristsTickets
+        // POST: api/TouristTickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TouristTicket>> PostTouristTicket(TouristTicket touristTicket)
@@ -83,7 +83,7 @@ namespace SistemaTurismo.API.Controllers
             return CreatedAtAction("GetTouristTicket", new { id = touristTicket.Id }, touristTicket);
         }
 
-        // DELETE: api/TouristsTickets/5
+        // DELETE: api/TouristTickets/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTouristTicket(int id)
         {

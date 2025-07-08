@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TurismoMVC.Models.CompraViewModel>
+
+@{
+    ViewData["Title"] = "Compras de Boletos";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@foreach (var compra in Model)
+{
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>
+                <strong>Compra #@compra.CompraId</strong> - Cliente: @compra.Cliente - Fecha: @compra.FechaCompra.ToString("g")
+            </span>
+            <form asp-action="DescargarPdf" method="post" style="display:inline;">
+                <input type="hidden" name="compraId" value="@compra.CompraId" />
+                <button type="submit" class="btn btn-sm btn-danger">Boleto en PDF</button>
+            </form>
+        </div>
+        <div class="card-body">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ruta</th>
+                        <th>Categoría</th>
+                        <th>Asiento</th>
+                        <th>Precio</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < compra.Boletos.Count; i++)
+                    {
+                        var b = compra.Boletos[i];
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@b.Route?.Name</td>
+                            <td>@b.Category?.Type</td>
+                            <td>@b.Seat?.Type</td>
+                            <td>@b.FinallyPrice.ToString("F2")</td>
+                            <td>@b.PurchaseDate.ToString("g")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

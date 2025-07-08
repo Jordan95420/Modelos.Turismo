@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SistemaTurismo.API.Migrations
 {
     [DbContext(typeof(DbContext))]
-    [Migration("20250708052617_v1TurismoData")]
-    partial class v1TurismoData
+    [Migration("20250708083954_v3Data")]
+    partial class v3Data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

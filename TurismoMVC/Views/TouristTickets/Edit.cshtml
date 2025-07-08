@@ -1,0 +1,38 @@
+﻿@model Turismo.Modelos.TouristTicket
+
+@{
+    ViewData["Title"] = "Editar Boleto Turístico";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="TouristRouteId" class="control-label"></label>
+        <input asp-for="TouristRouteId" class="form-control" />
+        <span asp-validation-for="TouristRouteId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryTicketId" class="control-label"></label>
+        <input asp-for="CategoryTicketId" class="form-control" />
+        <span asp-validation-for="CategoryTicketId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SeatCategoryId" class="control-label"></label>
+        <input asp-for="SeatCategoryId" class="form-control" />
+        <span asp-validation-for="SeatCategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserClientId" class="control-label"></label>
+        <input asp-for="UserClientId" class="form-control" />
+        <span asp-validation-for="UserClientId" class="text-danger"></span>
+    </div>
+    @* El precio y la fecha no se editan manualmente *@
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
